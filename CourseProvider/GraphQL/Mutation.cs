@@ -5,32 +5,32 @@ namespace CourseProvider.GraphQL
 {
     public class Mutation
     {
-        private readonly CourseService _service;
+        //private readonly CourseService _service;
 
-        public Mutation(CourseService service)
-        {
-            _service = service;
-        }
+        //public Mutation(CourseService service)
+        //{
+        //    _service = service;
+        //}
 
         [GraphQLName("createCourse")]
 
-        public async Task<CourseEntity> CreateCourseAsync(CourseEntity entity)
+        public async Task<CourseEntity> CreateCourseAsync([Service]CourseService service, CourseEntity entity)
         {
-            return await _service.CreateCourseAsync(entity);
+            return await service.CreateCourseAsync(entity);
         }
 
         [GraphQLName("updateCourse")]
 
-        public async Task<CourseEntity> UpdateCourseAsync(CourseEntity entity)
+        public async Task<CourseEntity> UpdateCourseAsync([Service] CourseService service, CourseEntity entity)
         {
-            return await _service.UpdateCourseAsync(entity);
+            return await service.UpdateCourseAsync(entity);
         }
 
         [GraphQLName("deleteCourse")]
 
-        public async Task<bool> DeleteCourseAsync(int id)
+        public async Task<bool> DeleteCourseAsync([Service] CourseService service, int id)
         {
-            return await _service.DeleteCourseAsync(id);
+            return await service.DeleteCourseAsync(id);
         }
     }
 }

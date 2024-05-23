@@ -5,25 +5,25 @@ namespace CourseProvider.GraphQL
 {
     public class Query
     {
-        private readonly CourseService _service;
+        //private readonly CourseService _service;
 
-        public Query(CourseService service)
-        {
-            _service = service;
-        }
+        //public Query(CourseService service)
+        //{
+        //    _service = service;
+        //}
 
         [GraphQLName("getCourse")]
 
-        public async Task<CourseEntity> GetCourseAsync(int id)
+        public async Task<CourseEntity> GetCourseAsync([Service] CourseService service, int id)
         {
-            return await _service.GetCourseAsync(id);
+            return await service.GetCourseAsync(id);
         }
 
         [GraphQLName("getAllCourses")]
 
-        public async Task<IEnumerable<CourseEntity>> GetAllCoursesAsync()
+        public async Task<IEnumerable<CourseEntity>> GetAllCoursesAsync([Service] CourseService service)
         {
-            return await _service.GetAllCoursesAsync();
+            return await service.GetAllCoursesAsync();
         }
     }
 }
