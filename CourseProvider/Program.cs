@@ -1,4 +1,7 @@
 using CourseProvider.Contexts;
+using CourseProvider.GraphQL;
+using CourseProvider.Repos;
+using CourseProvider.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>();
+
+builder.Services.AddScoped<CourseRepo>();
+builder.Services.AddScoped<CourseService>();
 
 var app = builder.Build();
 
@@ -25,5 +34,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGraphQL();
 
 app.Run();
