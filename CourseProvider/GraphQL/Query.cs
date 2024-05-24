@@ -1,5 +1,6 @@
 ﻿using CourseProvider.Entities;
 using CourseProvider.Services;
+using HotChocolate.Authorization;
 
 namespace CourseProvider.GraphQL
 {
@@ -13,6 +14,7 @@ namespace CourseProvider.GraphQL
         //}
 
         [GraphQLName("getCourse")]
+        [Authorize]
 
         public async Task<CourseEntity> GetCourseAsync([Service] CourseService service, int id)
         {
@@ -20,6 +22,7 @@ namespace CourseProvider.GraphQL
         }
 
         [GraphQLName("getAllCourses")]
+        [Authorize]
 
         public async Task<IEnumerable<CourseEntity>> GetAllCoursesAsync([Service] CourseService service)
         {

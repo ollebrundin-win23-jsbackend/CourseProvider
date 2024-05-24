@@ -1,5 +1,6 @@
 ﻿using CourseProvider.Entities;
 using CourseProvider.Services;
+using HotChocolate.Authorization;
 
 namespace CourseProvider.GraphQL
 {
@@ -13,13 +14,15 @@ namespace CourseProvider.GraphQL
         //}
 
         [GraphQLName("createCourse")]
+        [Authorize]
 
-        public async Task<CourseEntity> CreateCourseAsync([Service]CourseService service, CourseEntity entity)
+        public async Task<CourseEntity> CreateCourseAsync([Service]CourseService service, CourseEntity entity) //Istället för dependency injection i konstruktorn, så bör man använda detta sättet för att injecta en service i Hotchocolate GraphQL. Annars blir det problem med vårt DbContext
         {
             return await service.CreateCourseAsync(entity);
         }
 
         [GraphQLName("updateCourse")]
+        [Authorize]
 
         public async Task<CourseEntity> UpdateCourseAsync([Service] CourseService service, CourseEntity entity)
         {
@@ -27,6 +30,7 @@ namespace CourseProvider.GraphQL
         }
 
         [GraphQLName("deleteCourse")]
+        [Authorize]
 
         public async Task<bool> DeleteCourseAsync([Service] CourseService service, int id)
         {
