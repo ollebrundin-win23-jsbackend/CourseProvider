@@ -75,7 +75,7 @@ namespace CourseProvider.Services
             return null!;
         }
 
-        public async Task<CourseEntity> UpdateCourseAsync(CourseEntity entity)
+        public async Task<bool> UpdateCourseAsync(CourseEntity entity)
         {
             try
             {
@@ -83,11 +83,11 @@ namespace CourseProvider.Services
 
                 if (result)
                 {
-                    return entity;
+                    return result;
                 }
             }
             catch { }
-            return null!;
+            return false;
         }
     }
 }

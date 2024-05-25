@@ -24,7 +24,7 @@ namespace CourseProvider.GraphQL
         [GraphQLName("updateCourse")]
         [Authorize]
 
-        public async Task<CourseEntity> UpdateCourseAsync([Service] CourseService service, CourseEntity entity)
+        public async Task<bool> UpdateCourseAsync([Service] CourseService service, CourseEntity entity)
         {
             return await service.UpdateCourseAsync(entity);
         }
